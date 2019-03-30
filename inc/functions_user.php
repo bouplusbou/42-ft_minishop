@@ -38,8 +38,15 @@ function check_user_existance($data, $mail, $passwd = null) {
 function unserialize_data($file) {
 	$data = [];
 	if (file_exists($file)) {
-		$data = file_get_contents($file);
-		$data = unserialize($data);
+		$fd = fopen($file, "r");
+		if (flock($fd, LOCK_SH)) {
+			$data = file_get_contents($file);
+			$data = unserialize($data);
+			flock($fd, LOCK_UN);
+		} else {
+			echo "Unable to flock() the file: $file\n";
+		}
+		fclose($fp);
 	}
 	return ($data);
 }
@@ -55,8 +62,17 @@ function unserialize_data($file) {
  */
 
 function serialize_data($data, $file) {
-	$data = serialize($data);
-	file_put_contents($file, $data);
+	if (file_exists($file)) {
+		$fd = fopen($file, "c");
+		if (flock($fd, LOCK_EX)) {
+			$data = serialize($data);
+			file_put_contents($file, $data);
+			flock($fd, LOCK_UN);
+		} else {
+			echo "Unable to flock() the file: $file\n";
+		}
+		fclose($fd);
+	}
 }
 
 /*
