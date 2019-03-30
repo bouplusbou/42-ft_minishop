@@ -2,13 +2,16 @@
 
 include 'inc/functions_user.php';
 
+session_start();
+
+
 $file = 'database/passwd';
 $errors = array();
 $db = unserialize_data($file);
 $errmsg = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if ($_POST['submit'] !== "Create") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	if ($_POST['submit'] !== "Sign In") {
 		$errors[] = 'Invalid submit value';	
 	}
 
@@ -22,34 +25,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$errors[] = 'Please enter a password.';
 	}
 
-	if (check_user_existance($db, $_POST['email']) == true) {
-		$errors[] = 'There is already a user registered with that email.';
+	if (check_user_existance($db, $_POST['email'], $_POST['passwd']) === false) {
+		$errors[] = 'Incorrect email or password.';
 	}
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && count($errors) === 0) {
-	$db[] = create_user($_POST['email'], $_POST['passwd']);
-	serialize_data($db, $file);
-	header('Location: login.php');
+	$_SESSION['username'] = $_POST['email'];
+	header('Location: index.php');
 } else {
 	foreach ($errors as $error) {
 		$errmsg .= "<span class='error_msg'>$error</span>" . "<br />";
 	}
 }
 
-$title = "Create account";
+$title = "Login";
 include 'inc/header.php';
 ?>
 
-	<form name="index.php" action="create_user.php" method="post">
-	<label for="email">Email: </label><input class="" type="text" value="" name="email" />
-		<label for="passwd">Pasword: </label><input class="" type="password" value="" name="passwd" />
-		<input type="submit" value="Create" name="submit" />
+	<form name="index.php" action="login.php" method="post">
+	<label for="email">Email: </label><input type="text" value="" name="email" />
+		<label for="passwd">Pasword: </label><input type="password" value="" name="passwd" />
+		<input type="submit" value="Sign In" name="submit" />
 	</form>
 	<?php if ($errmsg !== ''):
 		echo $errmsg;
 		endif; ?>
-	<p>Already a client?</p>
-	<a href="login.php">Sign in</a>
+	<p>Pas encore de compte ?</p>
+	<a href="create_user.php">Create account</a>
 
 <?php include 'inc/footer.php'; ?>

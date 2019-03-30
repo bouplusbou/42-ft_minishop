@@ -30,7 +30,7 @@ function get_categories() {
 }
 $title = "Listing";
 $css = "./css/listing.css";
-include 'header.php';
+include 'inc/header.php';
 ?>
 	<div class="wrapper">
 		<?php
@@ -53,7 +53,7 @@ include 'header.php';
 					<div class="form-group">
 					  <form action="manage_cart.php" method="POST">
 					    <input name="quantity" type="hidden" value="1" />
-					    <input name="product_id" type="hidden" value="<?=$product['id']?>" /> 
+					    <input name="product_id" type="hidden" value="<?=$product['id']?>" />
 					    <button class="add-button" type="submit">Add to Cart!</button>
 					  </form>
 					</div>

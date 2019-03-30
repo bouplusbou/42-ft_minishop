@@ -14,6 +14,6 @@
 		<a href="listing.php?category=Clothing">Clothing</a>
 		<a href="listing.php?category=Wood">Wood</a>
 		<a href="listing.php?category=Papercuts">Papercuts</a>
-		<a href="login.html">Se connecter</a>
+		<a href="login.php">Se connecter</a>
 		<a href="cart.php">Panier</a>
 	</div>
