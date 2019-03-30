@@ -27,7 +27,7 @@ session_start();
             </ul>
         </li>
 		<?php } else { ?>
-			<a href="login.php">Se connecter</a>
+			<a href="login.php">Login</a>
 		<?php } ?>
-		<a href="cart.php">Panier</a>
+		<a href="cart.php">Cart</a>
 	</div>

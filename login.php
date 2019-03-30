@@ -41,17 +41,17 @@ $css = "css/login.css";
 $title = "Login";
 include 'inc/header.php';
 ?>
-	<div class="flex-container">
-		<form name="index.php" action="login.php" method="post">
-			<label for="email">Email: </label><input type="text" value="" name="email" />
-			<label for="passwd">Pasword: </label><input type="password" value="" name="passwd" />
-			<input type="submit" value="Sign In" name="submit" />
-		</form>
-		<?php if ($errmsg !== ''):
-			echo $errmsg;
-			endif; ?>
-		<p>Pas encore de compte ?</p>
-		<a href="create_user.php">Create account</a>
-	</div>
+<div class="flex-container">
+	<form name="index.php" action="login.php" method="post">
+		<label for="email">Email: </label><input type="text" value="" name="email" />
+		<label for="passwd">Pasword: </label><input type="password" value="" name="passwd" />
+		<input type="submit" value="Sign In" name="submit" />
+	</form>
+	<?php if ($errmsg !== ''):
+		echo $errmsg;
+		endif; ?>
+	<p>Pas encore de compte ?</p>
+	<a href="create_user.php">Create account</a>
+</div>
 
 <?php include 'inc/footer.php'; ?>
