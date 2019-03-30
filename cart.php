@@ -1,30 +1,50 @@
 <?php
-
+session_start();
+function get_products() {
+	if (file_exists("./database/products")) {
+		$fp = fopen("./database/products", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_products = file_get_contents("./database/products");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_products);
+	}
+}
+$title = "Shopping Cart";
+// $css = "./css/listing.css";
+include 'header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Shopping cart</title>
-</head>
-<body>
-	<a href="listing.php"><img src="" alt="LOGO"></a>
-	<a href="">All</a>
-	<a href="">Cat1</a>
-	<a href="">Cat2</a>
-	<a href="">Cat3</a>
-	<p>Compte</p>
-	<a href="account.php">Mon Compte</a>
-	<a href="logout.php">Déconnection</a>
-	<a href="cart.php">Panier</a>
-	<p>Total</p>
-	<p>$300.00</p>
-	<p>produit 1</p>
-	<p>produit 2</p>
-	<p>produit 3</p>
-	<p>produit 4</p>
-	<a href="">Valider la commande</a>
+	<div class="wrapper">
+		<h2>Cart</h2>
+		<?php
+		if (isset($_COOKIE['cart'])) {
+			$cart = unserialize($_COOKIE['cart']);
+			$products = get_products();
+			foreach ($cart as $cart_id => $cart_product) {
+				$product = $products[$cart_product['product_id']];
+		?>
+				<div class="product_container">
+				  <img src="<?=$product['img']?>" alt="" class="image">
+				  <div class="overlay">
+					<div class="text"><?=$product['name']?></div>
+					<div class="text"><?=$product['price']?></div>
+				  </div>
+				  <div class="form-group">	
+					  <form action="manage_cart.php" method="POST">
+					    <input name="type" type="hidden" value="delete" />
+					    <input name="quantity" type="hidden" value="1" />
+					    <input name="cart_id" type="hidden" value="<?=$cart_id?>" /> 
+					    <button class="delete-button" type="submit">Delete</button>
+					  </form>
+					</div>
+				</div>
+		<?php
+				}
+			}?>
+	</div>
 </body>
 </html>

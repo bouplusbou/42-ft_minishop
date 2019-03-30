@@ -18,37 +18,59 @@ $categories = array(
 $categories_serialized = serialize($categories);
 file_put_contents("./database/categories", "$categories_serialized");
 
+
+function download_img($image_url) {
+	$ch = curl_init($image_url);
+	$path_parts = pathinfo($image_url);
+	$parsed_url = parse_url($path_parts['basename']);
+	$path_parts = pathinfo($parsed_url['path']);
+	$path = "./resources/product_img/".$path_parts['filename'].".".$path_parts['extension'];
+	$fp = fopen($path, 'wb');
+	curl_setopt($ch, CURLOPT_FILE, $fp);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_exec($ch);
+	curl_close($ch);
+	fclose($fp);
+	return $path;
+}
+
+$images_url = array(
+	"https://i.ibb.co/bdT15nH/1.jpg",
+	"https://i.ibb.co/4m044CG/2.jpg",
+	"https://i.ibb.co/0cXSCg1/3.jpg",
+	"https://i.ibb.co/tcFbnvB/4.jpg",
+	"https://i.ibb.co/RcVvC2J/5.jpg"
+);
+foreach ($images_url as $image_url) {
+	download_img($image_url);
+}
+
 $products = array(
 	array(
-		"id" => 1,
 		"name" => "Lumbersexual",
 		"price" => 200,
 		"img" => "./resources/product_img/1.jpg",
 		"categories" => array("Clothing")
 	),
 	array(
-		"id" => 2,
 		"name" => "Seitan",
 		"price" => 100,
 		"img" => "./resources/product_img/2.jpg",
 		"categories" => array("Wood")
 	),
 	array(
-		"id" => 3,
 		"name" => "Normcore",
 		"price" => 400,
 		"img" => "./resources/product_img/3.jpg",
 		"categories" => array("Potery")
 	),
 	array(
-		"id" => 4,
 		"name" => "Pok",
 		"price" => 150,
 		"img" => "./resources/product_img/4.jpg",
 		"categories" => array("Totebag")
 	),
 	array(
-		"id" => 5,
 		"name" => "Poutine",
 		"price" => 320,
 		"img" => "./resources/product_img/5.jpg",

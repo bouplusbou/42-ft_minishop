@@ -1,35 +1,79 @@
 <?php
-
+session_start();
+$title = "Admin Panel";
+$css = "./css/admin.css";
+include 'header.php';
+function get_products() {
+	if (file_exists("./database/products")) {
+		$fp = fopen("./database/products", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_products = file_get_contents("./database/products");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_products);
+	}
+}
+function get_categories() {
+	if (file_exists("./database/categories")) {
+		$fp = fopen("./database/categories", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_categories = file_get_contents("./database/categories");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_categories);
+	}
+}
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Admin</title>
-</head>
-<body>
-	<a href="listing.php"><img src="" alt="LOGO"></a>
-	<a href="">All</a>
-	<a href="">Cat1</a>
-	<a href="">Cat2</a>
-	<a href="">Cat3</a>
-	<p>Compte</p>
-	<a href="account.php">Mon Compte</a>
-	<a href="logout.php">Déconnection</a>
-	<a href="cart.php">Panier</a>
 	<p>Admin panel</p>
-	<form name="index.php" action="create_product.php" method="post">
-		<label for="product_name">Nom: </label><input type="text" value="" name="email" />
-		<label for="product_price">Prix: </label><input type="password" value="" name="passwd" />
-		<label for="product_photo">Photo: </label><input type="password" value="" name="passwd" />
-		<label for="product_category">Category: </label><input type="password" value="" name="passwd" />
-		<input type="submit" value="OK" name="submit" />
+	<form name="index.php" action="manage_products.php" method="POST">
+		<input name="type" type="hidden" value="add">
+		<label for="product_name">Name: </label><input type="text" value="" name="name" required>
+		<label for="product_price">Price: </label><input type="number" value="" name="price" required>
+		<label for="product_photo">Photo URL: </label><input type="url" value="" name="img_url" required>
+		<label for="product_category">Category: </label><select class="prod-size-form-select" name="size">
+			<?php
+				$categories = get_categories();
+				print_r($categories);
+				foreach ($categories as $category) {
+			?>
+					<option value="<?=$category?>"><?=$category?></option>
+			<?php	
+				}
+			?>
+        </select>
+		<input type="submit" value="OK" name="submit">
 	</form>
-	<p>produit 1 + delete?</p>
-	<p>produit 2 + delete?</p>
-	<p>produit 3 + delete?</p>
-	<p>produit 4 + delete?</p>
+
+
+	<div class="wrapper">
+		<?php
+			$products = get_products();
+			foreach ($products as $product_id => $product) {
+		?>
+				<div class="product_container">
+				  <img src="<?=$product['img']?>" alt="" class="image">
+				  <div class="overlay">
+					<div class="text"><?=$product['name']?></div>
+					<div class="text"><?=$product['price']?></div>
+					<div class="form-group">
+					  <form action="manage_products.php" method="POST">
+					  	<input name="type" type="hidden" value="delete">
+					    <input name="product_id" type="hidden" value="<?=$product_id?>"> 
+					    <button class="delete-button" type="submit">Delete</button>
+					  </form>
+					</div>
+				  </div>
+				</div>
+		<?php
+			} ?>
+	</div>
 </body>
 </html>
