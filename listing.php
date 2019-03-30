@@ -28,12 +28,8 @@ function get_categories() {
 		return unserialize($file_categories);
 	}
 }
-function add_to_cart($img_id) {
-	echo $img_id."\n";
-	return;
-
-}
 $title = "Listing";
+$css = "./css/listing.css";
 include 'header.php';
 ?>
 	<div class="wrapper">

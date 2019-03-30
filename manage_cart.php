@@ -8,6 +8,7 @@ $cart[] = array(
 );
 $serialized_cart = serialize($cart);
 $_COOKIE['cart'] = $serialized_cart;
+print_r($_COOKIE['cart']);
 $from = $_SERVER['HTTP_REFERER'];
 header("Location: $from");
 ?>	
