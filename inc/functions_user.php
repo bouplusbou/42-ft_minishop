@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  *
  * Check if a user exists in the database
  *
@@ -26,7 +26,7 @@ function check_user_existance($data, $mail, $passwd = null) {
 	return false;
 }
 
-/**
+/*
  *
  * Returns the data of file unserialized
  *
@@ -44,7 +44,7 @@ function unserialize_data($file) {
 	return ($data);
 }
 
-/**
+/*
  *
  * Serialize data to a file
  *
@@ -85,4 +85,97 @@ function create_error_html($errors) {
 		$errmsg .= "<span class='error_msg'>$error</span>";
 	}
 	return $errmsg;
+}
+
+/*
+ *
+ * Return an array with all the products
+ *
+ * @return	none
+ *
+ */
+
+function get_products() {
+	if (file_exists("./database/products")) {
+		$fp = fopen("./database/products", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_products = file_get_contents("./database/products");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_products);
+	}
+}
+
+/*
+ *
+ * Return an array of all the categories
+ *
+ * @return	array
+ *
+ */
+
+function get_categories() {
+	if (file_exists("./database/categories")) {
+		$fp = fopen("./database/categories", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_categories = file_get_contents("./database/categories");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_categories);
+	}
+}
+
+/*
+ *
+ * Download an image from a URL, place it in ./resources/product_img/
+ * and return the path newly created
+ *
+ * @param	string	$image_url representing the url of the image to dl
+ * @return  array
+ *
+ */
+
+function download_img($image_url) {
+	$ch = curl_init($image_url);
+	$path_parts = pathinfo($image_url);
+	$parsed_url = parse_url($path_parts['basename']);
+	$path_parts = pathinfo($parsed_url['path']);
+	$path = "./resources/product_img/".$path_parts['filename'].".".$path_parts['extension'];
+	$fp = fopen($path, 'wb');
+	curl_setopt($ch, CURLOPT_FILE, $fp);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_exec($ch);
+	curl_close($ch);
+	fclose($fp);
+	return $path;
+}
+
+/*
+ *
+ * Return all the categories from a product
+ *
+ * @param	string	$product_id
+ * @return  string
+ *
+ */
+
+function get_product_categories_arr($product_id) {
+	$products = get_products();
+	$categories = $products[$product_id]['categories'];
+	return $categories;
+}
+
+function get_product_categories($product_id) {
+	$products = get_products();
+	$categories = $products[$product_id]['categories'];
+	$categories_str = implode(",", $categories);
+	return $categories_str;
 }

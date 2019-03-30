@@ -1,49 +1,59 @@
 <?php
 session_start();
-function get_products() {
-	if (file_exists("./database/products")) {
-		$fp = fopen("./database/products", "r");
-		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
-			$file_products = file_get_contents("./database/products");
-			fflush($fp);            // libère le contenu avant d'enlever le verrou
-			flock($fp, LOCK_UN);    // Enlève le verrou
-		} else {
-			echo "Impossible de verrouiller le fichier !";
-		}
-		fclose($fp);
-		return unserialize($file_products);
-	}
-}
-function download_img($image_url) {
-	$ch = curl_init($image_url);
-	$path_parts = pathinfo($image_url);
-	$parsed_url = parse_url($path_parts['basename']);
-	$path_parts = pathinfo($parsed_url['path']);
-	$path = "./resources/product_img/".$path_parts['filename'].".".$path_parts['extension'];
-	$fp = fopen($path, 'wb');
-	curl_setopt($ch, CURLOPT_FILE, $fp);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_exec($ch);
-	curl_close($ch);
-	fclose($fp);
-	return $path;
-}
+include 'inc/functions_user.php';
 $products = get_products();
-if ($_POST['type'] === "add") {
-	$img_path = download_img($_POST['img_url']);
-	$product = array(
-		"name" => $_POST['name'],
-		"price" => $_POST['price'],
-		"img" => $img_path,
-		"categories" => array($_POST['category'])
-	);
-	$products[] = $product;
-	$products_serialized = serialize($products);
-	file_put_contents("./database/products", "$products_serialized", LOCK_EX);
-} elseif ($_POST['type'] === "delete") {
-	unset($products[$_POST['product_id']]);
-	$serialized_products = serialize($products);
-	file_put_contents("./database/products", "$serialized_products", LOCK_EX);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if ($_POST['type'] === "create") {
+		$img_path = download_img($_POST['img_url']);
+		if ($_POST['categories']) {
+			$categories = explode(",", $_POST['categories']);
+			foreach ($categories as $key => $category) {
+				if (!in_array($category, get_categories())) {
+					unset($categories[$key]);
+				}
+			}
+		}
+		$product = array(
+			"name" => $_POST['name'],
+			"price" => $_POST['price'],
+			"img" => $img_path,
+			"categories" => $categories
+		);
+		$products[] = $product;
+		$products_serialized = serialize($products);
+		file_put_contents("./database/products", "$products_serialized", LOCK_EX);
+	} elseif ($_POST['type'] === "delete") {
+		unset($products[$_POST['product_id']]);
+		$serialized_products = serialize($products);
+		file_put_contents("./database/products", "$serialized_products", LOCK_EX);
+	} elseif ($_POST['type'] === "update") {
+
+		print_r($_POST);
+
+
+
+		if ($_POST['categories']) {
+			$categories = explode(",", $_POST['categories']);
+			foreach ($categories as $key => $category) {
+				if (!in_array($category, get_categories())) {
+					unset($categories[$key]);
+				}
+			}
+		}
+		if ($_POST['img_url']) {
+			$img_path = download_img($_POST['img_url']);
+		}
+		$product = $products[$_POST['product_id']];
+		$product = array(
+			"name" => $_POST['name'] ? $_POST['name'] : $product['name'],
+			"price" => $_POST['price'] ? $_POST['price'] : $product['price'],
+			"img" => $_POST['img_url'] ? $img_path : $product['img'],
+			"categories" => $_POST['categories'] ? $categories : $product['categories']
+		);
+		$products[$_POST['product_id']] = $product;
+		$products_serialized = serialize($products);
+		file_put_contents("./database/products", "$products_serialized", LOCK_EX);
+	}
 }
 $from = $_SERVER['HTTP_REFERER'];
 header("Location: $from");

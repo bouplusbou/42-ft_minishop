@@ -17,8 +17,8 @@ session_start();
 		<a href="listing.php?category=All"><img src="" alt="LOGO"></a>
 		<a href="listing.php?category=All">All</a>
 		<a href="listing.php?category=Clothing">Clothing</a>
-		<a href="listing.php?category=Wood">Wood</a>
-		<a href="listing.php?category=Papercuts">Papercuts</a>
+		<a href="listing.php?category=Prints">Prints</a>
+		<a href="listing.php?category=Sales">Sales</a>
 		<?php if (isset($_SESSION['username'])) {?>
 		<li class="menu_li"><a href="#" id="sandwichs" class="menu_a">Account</a>
             <ul id="dropdown">

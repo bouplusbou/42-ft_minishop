@@ -7,32 +7,16 @@ if ($_SERVER['REQUEST_METHOD']) {
 if (!file_exists("./database/")) {
 	mkdir("./database/");
 }
+include 'inc/functions_user.php';
 
 $categories = array(
 		"Clothing",
-		"Wood",
-		"Potery",
-		"Totebag",
-		"Papercuts"
+		"Prints",
+		"Sales",
 );
 $categories_serialized = serialize($categories);
 file_put_contents("./database/categories", "$categories_serialized");
 
-
-function download_img($image_url) {
-	$ch = curl_init($image_url);
-	$path_parts = pathinfo($image_url);
-	$parsed_url = parse_url($path_parts['basename']);
-	$path_parts = pathinfo($parsed_url['path']);
-	$path = "./resources/product_img/".$path_parts['filename'].".".$path_parts['extension'];
-	$fp = fopen($path, 'wb');
-	curl_setopt($ch, CURLOPT_FILE, $fp);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_exec($ch);
-	curl_close($ch);
-	fclose($fp);
-	return $path;
-}
 
 $images_url = array(
 	"https://i.ibb.co/bdT15nH/1.jpg",
@@ -50,31 +34,31 @@ $products = array(
 		"name" => "Lumbersexual",
 		"price" => 200,
 		"img" => "./resources/product_img/1.jpg",
-		"categories" => array("Clothing")
+		"categories" => array("Clothing", "Sales")
 	),
 	array(
 		"name" => "Seitan",
 		"price" => 100,
 		"img" => "./resources/product_img/2.jpg",
-		"categories" => array("Wood")
+		"categories" => array("Clothing")
 	),
 	array(
 		"name" => "Normcore",
 		"price" => 400,
 		"img" => "./resources/product_img/3.jpg",
-		"categories" => array("Potery")
+		"categories" => array("Clothing")
 	),
 	array(
 		"name" => "Pok",
 		"price" => 150,
 		"img" => "./resources/product_img/4.jpg",
-		"categories" => array("Totebag")
+		"categories" => array("Prints", "Sales")
 	),
 	array(
 		"name" => "Poutine",
 		"price" => 320,
 		"img" => "./resources/product_img/5.jpg",
-		"categories" => array("Papercuts")
+		"categories" => array("Prints")
 	)
 );
 $products_serialized = serialize($products);
