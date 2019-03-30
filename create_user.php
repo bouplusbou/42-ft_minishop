@@ -9,7 +9,7 @@ $errmsg = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ($_POST['submit'] !== "Create") {
-		$errors[] = 'Invalid submit value';	
+		$errors[] = 'Invalid submit value';
 	}
 
 	if (strlen($_POST['email']) === 0) {
@@ -32,24 +32,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && count($errors) === 0) {
 	serialize_data($db, $file);
 	header('Location: login.php');
 } else {
-	foreach ($errors as $error) {
-		$errmsg .= "<span class='error_msg'>$error</span>" . "<br />";
-	}
+	$errmsg = create_error_html($errors);
 }
 
+$css = "css/login.css";
 $title = "Create account";
 include 'inc/header.php';
 ?>
 
-	<form name="index.php" action="create_user.php" method="post">
-	<label for="email">Email: </label><input class="" type="text" value="" name="email" />
-		<label for="passwd">Pasword: </label><input class="" type="password" value="" name="passwd" />
-		<input type="submit" value="Create" name="submit" />
-	</form>
-	<?php if ($errmsg !== ''):
-		echo $errmsg;
-		endif; ?>
-	<p>Already a client?</p>
-	<a href="login.php">Sign in</a>
+	<div class="flex-container">
+		<form name="index.php" action="create_user.php" method="post">
+		<label for="email">Email: </label><input class="" type="text" value="" name="email" />
+			<label for="passwd">Pasword: </label><input class="" type="password" value="" name="passwd" />
+			<input type="submit" value="Create" name="submit" />
+		</form>
+		<?php if ($errmsg !== ''):
+			echo $errmsg;
+			endif; ?>
+		<p>Already a client?</p>
+		<a href="login.php">Sign in</a>
+	</div>
 
 <?php include 'inc/footer.php'; ?>

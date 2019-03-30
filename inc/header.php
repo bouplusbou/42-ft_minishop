@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +18,15 @@
 		<a href="listing.php?category=Clothing">Clothing</a>
 		<a href="listing.php?category=Wood">Wood</a>
 		<a href="listing.php?category=Papercuts">Papercuts</a>
-		<a href="login.php">Se connecter</a>
+		<?php if (isset($_SESSION['username'])) {?>
+		<li class="menu_li"><a href="#" id="sandwichs" class="menu_a">Account</a>
+            <ul id="dropdown">
+                <li id="purple"><a href="account.php">My account</a></li>
+                <li id="blue"><a href="logout.php">Logout</a></li>
+            </ul>
+        </li>
+		<?php } else { ?>
+			<a href="login.php">Se connecter</a>
+		<?php } ?>
 		<a href="cart.php">Panier</a>
 	</div>

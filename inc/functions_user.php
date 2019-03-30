@@ -5,9 +5,9 @@
  * Check if a user exists in the database
  *
  * @param		array   $data The array with the unserialize data
- * @param	    string  $mail Mail ot check	
- * @param	    string  $passwd if set it'll also check if the passwd is correct	
- * @return      bool 
+ * @param	    string  $mail Mail ot check
+ * @param	    string  $passwd if set it'll also check if the passwd is correct
+ * @return      bool
  *
  */
 
@@ -16,7 +16,6 @@ function check_user_existance($data, $mail, $passwd = null) {
 		if ($user['user'] === $mail) {
 			if ($passwd !== null) {
 				if (password_verify($passwd, $user['passwd']) == true) {
-				echo "here";
 					return true;
 				}
 			} else {
@@ -28,7 +27,7 @@ function check_user_existance($data, $mail, $passwd = null) {
 }
 
 /**
- * 
+ *
  * Returns the data of file unserialized
  *
  * @param	string $file path of the file
@@ -66,12 +65,12 @@ function serialize_data($data, $file) {
  *
  * @param	string	$user representing the mail associated with the user
  * @param   string  $passwd plain text passwd
- * @return  array   
+ * @return  array
  *
  */
 
 function	create_user($user, $passwd) {
-	$passwd = password_hash($passwd, PASSWORD_BCRYPT); 
+	$passwd = password_hash($passwd, PASSWORD_BCRYPT);
 
 	return ["user" => $user, "passwd" => $passwd];
 }
@@ -80,3 +79,10 @@ function is_valid_email($email) {
 	return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
+function create_error_html($errors) {
+	$errmsg = '';
+	foreach ($errors as $error) {
+		$errmsg .= "<span class='error_msg'>$error</span>";
+	}
+	return $errmsg;
+}
