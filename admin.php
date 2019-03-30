@@ -17,15 +17,42 @@ function get_products() {
 		return unserialize($file_products);
 	}
 }
+function get_categories() {
+	if (file_exists("./database/categories")) {
+		$fp = fopen("./database/categories", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_categories = file_get_contents("./database/categories");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_categories);
+	}
+}
 ?>
 	<p>Admin panel</p>
-	<form name="index.php" action="create_product.php" method="post">
-		<label for="product_name">Name: </label><input type="text" value="" name="email" required>
-		<label for="product_price">Price: </label><input type="password" value="" name="passwd" required>
-		<label for="product_photo">Photo URL: </label><input type="password" value="" name="passwd" required>
-		<label for="product_category">Category: </label><input type="password" value="" name="passwd" required>
+	<form name="index.php" action="manage_products.php" method="POST">
+		<input name="type" type="hidden" value="add">
+		<label for="product_name">Name: </label><input type="text" value="" name="name" required>
+		<label for="product_price">Price: </label><input type="number" value="" name="price" required>
+		<label for="product_photo">Photo URL: </label><input type="url" value="" name="img_url" required>
+		<label for="product_category">Category: </label><select class="prod-size-form-select" name="size">
+			<?php
+				$categories = get_categories();
+				print_r($categories);
+				foreach ($categories as $category) {
+			?>
+					<option value="<?=$category?>"><?=$category?></option>
+			<?php	
+				}
+			?>
+        </select>
 		<input type="submit" value="OK" name="submit">
 	</form>
+
+
 	<div class="wrapper">
 		<?php
 			$products = get_products();
