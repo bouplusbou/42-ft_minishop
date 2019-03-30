@@ -52,6 +52,7 @@ include 'header.php';
 					<div class="text"><?=$product['price']?></div>
 					<div class="form-group">	
 					  <form action="manage_cart.php" method="POST">
+					  	<input name="type" type="hidden" value="add" />
 					    <input name="quantity" type="hidden" value="1" />
 					    <input name="product_id" type="hidden" value="<?=$id?>" /> 
 					    <button class="add-button" type="submit">Add to Cart!</button>
