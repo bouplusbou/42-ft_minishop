@@ -45,7 +45,7 @@ function get_categories() {
 				foreach ($categories as $category) {
 			?>
 					<option value="<?=$category?>"><?=$category?></option>
-			<?php	
+			<?php
 				}
 			?>
         </select>
@@ -66,7 +66,7 @@ function get_categories() {
 					<div class="form-group">
 					  <form action="manage_products.php" method="POST">
 					  	<input name="type" type="hidden" value="delete">
-					    <input name="product_id" type="hidden" value="<?=$product_id?>"> 
+					    <input name="product_id" type="hidden" value="<?=$product_id?>">
 					    <button class="delete-button" type="submit">Delete</button>
 					  </form>
 					</div>

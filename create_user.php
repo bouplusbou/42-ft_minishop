@@ -39,18 +39,18 @@ $css = "css/login.css";
 $title = "Create account";
 include 'inc/header.php';
 ?>
-
-	<div class="flex-container">
-		<form name="index.php" action="create_user.php" method="post">
-		<label for="email">Email: </label><input class="" type="text" value="" name="email" />
-			<label for="passwd">Pasword: </label><input class="" type="password" value="" name="passwd" />
-			<input type="submit" value="Create" name="submit" />
-		</form>
-		<?php if ($errmsg !== ''):
-			echo $errmsg;
-			endif; ?>
-		<p>Already a client?</p>
-		<a href="login.php">Sign in</a>
+	<div class="login-page">
+		<div class="form">
+			<form class="login-form" name="index.php" action="login.php" method="post">
+				<input placeholder="email address" type="text" value="" name="email" />
+				<input placeholder="password" type="password" value="" name="passwd" />
+				<input type="submit" value="Sign Up" name="submit" />
+			</form>
+			<?php if ($errmsg !== ''):
+				echo $errmsg;
+				endif; ?>
+			<a href="login.php">Sign In</a>
+		</div>
 	</div>
 
 <?php include 'inc/footer.php'; ?>

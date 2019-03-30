@@ -83,8 +83,9 @@ file_put_contents("./database/products", "$products_serialized");
 $users = array(
 	"lol@google.com" => array(
 		"passwd" => "lol@google.com",
-		"cart" => "",
-		"type" => "1"),
+		"cart" => array(),
+		"orders" => array(),
+		"type" => false),
 	"pop@google.com" => array(
 		"passwd" => "pop@google.com",
 		"cart" => "",

@@ -50,12 +50,12 @@ include 'inc/header.php';
 				  <div class="overlay">
 					<div class="text"><?=$product['name']?></div>
 					<div class="text"><?=$product['price']?></div>
-					<div class="form-group">	
+					<div class="form-group">
 					  <form action="manage_cart.php" method="POST">
-					  	<input name="type" type="hidden" value="add" />
 					    <input name="quantity" type="hidden" value="1" />
-					    <input name="product_id" type="hidden" value="<?=$product_id?>" /> 
+					    <input name="product_id" type="hidden" value="<?=$product_id?>" />
 					    <button class="add-button" type="submit">Add to Cart!</button>
+							<input type="submit" name="add" value="Add" />
 					  </form>
 					</div>
 				  </div>

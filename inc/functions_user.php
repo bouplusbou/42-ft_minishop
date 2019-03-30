@@ -46,7 +46,7 @@ function unserialize_data($file) {
 		} else {
 			echo "Unable to flock() the file: $file\n";
 		}
-		fclose($fp);
+		fclose($fd);
 	}
 	return ($data);
 }
