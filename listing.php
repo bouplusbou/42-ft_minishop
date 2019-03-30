@@ -42,18 +42,18 @@ include 'header.php';
 		<h2><?=$category?></h2>
 		<?php
 			$products = get_products();
-			foreach ($products as $product) {
-				if ($category === "All" ||in_array($category, $product['categories'])) {
+			foreach ($products as $id => $product) {
+				if ($category === "All" || in_array($category, $product['categories'])) {
 					?>
 				<div class="product_container">
 				  <img src="<?=$product['img']?>" alt="" class="image">
 				  <div class="overlay">
 					<div class="text"><?=$product['name']?></div>
 					<div class="text"><?=$product['price']?></div>
-					<div class="form-group">
+					<div class="form-group">	
 					  <form action="manage_cart.php" method="POST">
 					    <input name="quantity" type="hidden" value="1" />
-					    <input name="product_id" type="hidden" value="<?=$product['id']?>" /> 
+					    <input name="product_id" type="hidden" value="<?=$id?>" /> 
 					    <button class="add-button" type="submit">Add to Cart!</button>
 					  </form>
 					</div>

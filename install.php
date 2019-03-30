@@ -20,35 +20,30 @@ file_put_contents("./database/categories", "$categories_serialized");
 
 $products = array(
 	array(
-		"id" => 1,
 		"name" => "Lumbersexual",
 		"price" => 200,
 		"img" => "./resources/product_img/1.jpg",
 		"categories" => array("Clothing")
 	),
 	array(
-		"id" => 2,
 		"name" => "Seitan",
 		"price" => 100,
 		"img" => "./resources/product_img/2.jpg",
 		"categories" => array("Wood")
 	),
 	array(
-		"id" => 3,
 		"name" => "Normcore",
 		"price" => 400,
 		"img" => "./resources/product_img/3.jpg",
 		"categories" => array("Potery")
 	),
 	array(
-		"id" => 4,
 		"name" => "Pok",
 		"price" => 150,
 		"img" => "./resources/product_img/4.jpg",
 		"categories" => array("Totebag")
 	),
 	array(
-		"id" => 5,
 		"name" => "Poutine",
 		"price" => 320,
 		"img" => "./resources/product_img/5.jpg",
