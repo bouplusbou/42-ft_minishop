@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 function get_products() {
 	if (file_exists("./database/products")) {
 		$fp = fopen("./database/products", "r");
@@ -39,7 +38,7 @@ include 'header.php';
 					    <input name="type" type="hidden" value="delete" />
 					    <input name="quantity" type="hidden" value="1" />
 					    <input name="cart_id" type="hidden" value="<?=$cart_id?>" /> 
-					    <button class="add-button" type="submit">Delete</button>
+					    <button class="delete-button" type="submit">Delete</button>
 					  </form>
 					</div>
 				</div>

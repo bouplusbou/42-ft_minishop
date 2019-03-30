@@ -42,7 +42,7 @@ include 'header.php';
 		<h2><?=$category?></h2>
 		<?php
 			$products = get_products();
-			foreach ($products as $id => $product) {
+			foreach ($products as $product_id => $product) {
 				if ($category === "All" || in_array($category, $product['categories'])) {
 					?>
 				<div class="product_container">
@@ -54,7 +54,7 @@ include 'header.php';
 					  <form action="manage_cart.php" method="POST">
 					  	<input name="type" type="hidden" value="add" />
 					    <input name="quantity" type="hidden" value="1" />
-					    <input name="product_id" type="hidden" value="<?=$id?>" /> 
+					    <input name="product_id" type="hidden" value="<?=$product_id?>" /> 
 					    <button class="add-button" type="submit">Add to Cart!</button>
 					  </form>
 					</div>
