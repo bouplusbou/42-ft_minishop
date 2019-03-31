@@ -2,31 +2,6 @@
 include 'inc/db_user_functions.php';
 include 'inc/functions_user.php';
 
-function get_cart_dict($cart) {
-    $items = array();
-    $products = get_products();
-    foreach ($cart as $cart_id => $product_id) {
-		$pd_id = $product_id['product_id'];
-        if (isset($items[$pd_id])) {
-            $items[$pd_id]["quantity"] += 1;
-        } else {
-            $items[$pd_id] = [
-                "product_info" => $products[$pd_id],
-                "quantity" => 1
-            ];
-        }
-    }
-    return $items;
-}
-
-function calculate_total_cost($items) {
-    $total = 0;
-    foreach ($items as $product) {
-        $total += $product['quantity'] * $product['product_info']['price'];
-    }
-    return $total;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $cart = unserialize($_COOKIE['cart']);
     if ($_POST['add'] === "add") {
@@ -65,49 +40,55 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 $css = "css/cart.css";
 include 'inc/header.php';
 $title = "Shopping Cart";
-// $css = "./css/listing.css";
 ?>
-<h2 class="title">Cart</h2>
+<h2>CART</h2>
 <div class="wrapper-cart">
-
-    <div class="product-list">
-    <?php if (isset($_COOKIE['cart'])) {
-        $cart = unserialize($_COOKIE['cart']);
-        $items = get_cart_dict($cart);
-
-        foreach ($items as $product_id => $product) { ?>
-            <div class="product_wrapper">
-                <div class="image-container">
-                    <img src="<?=$product['product_info']['img']?>" alt="" class="image"/>
-                </div>
-                <div class="info-product">
-                    <span><?=$product['product_info']['name']?></span>
-                    <span>Quantity: <?=$product['quantity']?></span>
-                    <span>Price: <?php echo $product['quantity'] * $product['product_info']['price']; ?> </span>
-                </div>
-                <div class="delete-button">
-                   <form action="cart.php" method="POST">
-                        <input type="hidden" name="product_id" value="<?=$product_id?>" />
-                        <button name="add" value="add">Add</button>
-                        <button name="delete" value="delete">Delete</button>
-                    </form>
-                </div>
-            </div>
-        <?php }
-    } ?>
-    </div>
-    <?php if (count($items) !== 0) { ?>
-        <div class="product-summary">
-            <div class="summary-wrapper">
-                <div class="info-order">
-                    <span>Total price: <?=calculate_total_cost($items)?></span>
-                </div>
-                <form method="post" action="cart.php">
-                    <button name="order" value="order">Order</button>
-                </form>
-            </div>
-        </div>
-    <?php } ?>
+	<?php if (isset($_COOKIE['cart'])) {
+			$cart = unserialize($_COOKIE['cart']);
+			$items = get_cart_dict($cart);
+			if (count($items) !== 0) { ?>
+	<div class="product-summary">
+		<div class="summary-wrapper">
+			<div class="info-order">
+				<h3>Subtotal</h3>
+				<span class="total_price">$<?=calculate_total_cost($items)?>.00</span>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+	<div class="product-list">
+	<?php foreach ($items as $product_id => $product) { ?>
+		<div class="product_wrapper">
+			<div class="image-container">
+				<img src="<?=$product['product_info']['img']?>" alt="" class="image"/>
+			</div>
+			<div class="info-product">
+				<span><?=$product['product_info']['name']?></span>
+				<span><?=$product['quantity']?></span>
+				<span class="product_price">$<?php echo $product['quantity'] * $product['product_info']['price']; ?>.00 </span>
+			</div>
+			<div class="change_quantity">
+				<form action="cart.php" method="POST">
+					<input type="hidden" name="product_id" value="<?=$product_id?>" />
+					<button name="add" value="add">Add</button>
+					<button name="delete" value="delete">Delete</button>
+				</form>
+			</div>
+		</div>
+	<?php } ?>
+	</div>
+	<?php if (isset($_COOKIE['cart'])) {
+			$cart = unserialize($_COOKIE['cart']);
+			$items = get_cart_dict($cart);
+			if (count($items) !== 0) { ?>
+		<div class="place_order">
+			<form method="post" action="cart.php">
+				<button name="order" value="order">Order</button>
+			</form>
+		</div>
+	<?php } ?>
+	<?php }?>
+	<?php }?>
 </div>
 
 <?php include 'inc/footer.php' ?>
