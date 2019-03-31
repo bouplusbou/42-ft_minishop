@@ -14,11 +14,11 @@ session_start();
 </head>
 <body>
 	<div id="header">
-		<a href="listing.php?category=All"><img src="" alt="LOGO"></a>
-		<a href="listing.php?category=All">All</a>
-		<a href="listing.php?category=Clothing">Clothing</a>
-		<a href="listing.php?category=Prints">Prints</a>
-		<a href="listing.php?category=Sales">Sales</a>
+		<a href="listing.php?category=ALL"><img src="../resources/product_img/logo-artsy-blue.png" height="50px" alt="LOGO"></a>
+		<a href="listing.php?category=ALL">All</a>
+		<a href="listing.php?category=PRINTS">Prints</a>
+		<a href="listing.php?category=PAPERCUTS">Papercuts</a>
+		<a href="listing.php?category=SALES">Sales</a>
 		<?php if (isset($_SESSION['username'])) {?>
 		<li class="menu_li"><a href="#" id="sandwichs" class="menu_a">Account</a>
             <ul id="dropdown">

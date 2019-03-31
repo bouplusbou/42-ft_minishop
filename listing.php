@@ -6,35 +6,35 @@ $css = "./css/listing.css";
 include 'inc/header.php';
 ?>
 	<div class="wrapper">
-		<?php $category = "All";
+		<?php $category = "ALL";
 			if (in_array($_GET['category'], get_categories())) {
 				$category = $_GET['category'];
 			} ?>
 		<h2><?=$category?></h2>
-		<div class="mondrian">
-			<ul>
-				<li><img src="./resources/product_img/1.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/4.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/5.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/1.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/2.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/4.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/2.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/2.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/3.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/1.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/3.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/1.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/5.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/3.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/4.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/5.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/2.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/3.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/4.jpg" alt="" width="200px"></li>
-				<li><img src="./resources/product_img/5.jpg" alt="" width="200px"></li>
-			</ul>
+		<?php $products = get_products();
+		foreach ($products as $product_id => $product) {
+		if ($category === "ALL" || in_array($category, $product['categories'])) { ?>
+		<div class="product_wrapper">
+			<div class="product_container">
+				<img src="<?=$product['img']?>" alt="" class="image">
+				<div class="overlay">
+					<div class="product_infos">
+						<div class="text product_name"><?=$product['name']?></div>
+						<div class="text product_price">$<?=$product['price']?>.00</div>
+					</div>
+					<div class="form-group">	
+					  <form action="manage_cart.php" method="POST">
+						  <input name="type" type="hidden" value="add" />
+						<input name="quantity" type="hidden" value="1" />
+						<input name="product_id" type="hidden" value="<?=$product_id?>" /> 
+						<button class="add-button" type="submit">Add to Cart!</button>
+					  </form>
+					</div>
+				  </div>
+			</div>
 		</div>
+		<?php } 
+		} ?>
 	</div>
 </body>
 </html>
