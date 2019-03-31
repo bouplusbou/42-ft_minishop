@@ -263,10 +263,6 @@ $admins = [
     "alonsonestor20@gmail.com"
 ];
 
-
 $admins_serialized = serialize($admins);
 file_put_contents('database/admins', "$admins_serialized");
-
-// echo password_hash("lol@google.com", PASSWORD_BCRYPT);
-// echo intval(password_verify("lol@google.com", password_hash("lol@google.co", PASSWORD_BCRYPT)));
 ?>
