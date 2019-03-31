@@ -5,24 +5,26 @@ $css = "./css/admin.css";
 include 'inc/functions_user.php';
 include 'inc/header.php';
 ?>
-	<p>Admin panel</p>
-	<p>Add a product</p>
-	<form name="index.php" action="manage_products.php" method="POST">
-		<input name="type" type="hidden" value="create">
-		<label for="product_name">Name </label><br>
-		<input type="text" value="" name="name" required><br>
-		<label for="product_price">Price </label><br>
-		<input type="number" value="" name="price" required><br>
-		<label for="product_photo">Photo url </label><br>
-		<input type="url" value="" name="img_url" required><br>
-		<label for="product_category">Add a category: </label><select class="prod-size-form-select" name="size">
-		<?php $categories = get_categories();
-		foreach ($categories as $category) { ?>
-			<option value="<?=$category?>"><?=$category?></option>
-		<?php } ?>
-		</select><br>
-		<input type="submit" value="OK" name="submit">
-	</form>
+	<h1>Admin Panel - Product</h1>
+	<div class="add_product">
+		<h2>Add a product</h2>
+		<form name="index.php" action="manage_products.php" method="POST">
+			<input name="type" type="hidden" value="create">
+			<label for="product_name">Name </label><br>
+			<input type="text" value="" name="name" required><br>
+			<label for="product_price">Price </label><br>
+			<input type="number" value="" name="price" required><br>
+			<label for="product_photo">Photo url </label><br>
+			<input type="url" value="" name="img_url" required><br>
+			<?php $categories = get_categories();
+			foreach ($categories as $key => $category) { ?>
+			<input type="checkbox" id="<?=$category?>" name="category_<?=$key?>" value="<?=$category?>">
+  			<label for="<?=$category?>"><?=$category?></label>
+			<?php } ?>
+			<input type="submit" value="OK" name="submit">
+		</form>
+
+	</div>
 	
 	<p>Change a product</p>
 	<div class="wrapper">
@@ -39,27 +41,18 @@ include 'inc/header.php';
 				<label for="product_price">Price </label><br>
 				<input type="number" value="<?=$product['price']?>" name="price" ><br>
 				<label for="product_photo">Photo url </label><br>
-				<input type="url" value="" name="img_url"><br>
-				<label for="product_category">Add a category: </label><select class="prod-size-form-select" name="size">
+				<input type="text" value="<?=$product['img']?>" name="img_url"><br>
 				<?php $categories = get_categories();
-				foreach ($categories as $category) { ?>
-					<option value="<?=$category?>"><?=$category?></option>
+				foreach ($categories as $key => $category) { ?>
+				<input type="checkbox" id="<?=$category?>" name="category_<?=$key?>" value="<?=$category?>" <?=in_array($category, $product['categories']) ? "checked" : ""?>>
+  				<label for="<?=$category?>"><?=$category?></label>
 				<?php } ?>
-				</select><br>
-				
 				<input type="submit" value="OK" name="submit">
 			</form>
-			<div class="form-group">
-			  <form action="manage_products.php" method="POST">
-			  <label for="product_category">Delete a category: </label><select class="prod-size-form-select" name="size">
-				<?php $categories = get_product_categories_arr($product_id);
-				foreach ($categories as $category) { ?>
-					<option value="<?=$category?>"><?=$category?></option>
-				<?php } ?>
-        		</select> 
-			    <button class="delete-button" type="submit">Delete a category</button>
-			  </form>
-			</div>
+
+
+
+			
 			<div class="form-group">
 			  <form action="manage_products.php" method="POST">
 			  	<input name="type" type="hidden" value="delete">
