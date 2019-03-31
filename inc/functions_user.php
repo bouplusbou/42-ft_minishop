@@ -91,6 +91,18 @@ function	create_user($user, $passwd) {
 	return ["user" => $user, "passwd" => $passwd];
 }
 
+function	delete_user($file, $username) {
+	$db = unserialize_data($file);
+	foreach ($db as $key => $user) {
+		if ($user['user'] == $username) {
+			unset($db[$key]);
+			break ;
+		}
+	}
+	$db = array_values($db);
+	serialize_data($db, $file);
+}
+
 function is_valid_email($email) {
 	return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
