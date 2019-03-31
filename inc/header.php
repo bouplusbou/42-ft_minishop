@@ -8,6 +8,7 @@ session_start();
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" type="image/png" href="../resources/website_img/favicon.png" />
 	<link rel="stylesheet" href="./css/header.css" type="text/css">
 	<link rel="stylesheet" href="<?=$css?>" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -16,7 +17,7 @@ session_start();
 <body>
 	<div id="header">
 		<div class="logo">
-			<a href="listing.php?category=ALL"><img src="../resources/website_img/logo-artsy-black.png" height="50px" alt="LOGO"></a>
+			<a href="listing.php?category=ALL"><img src="../resources/website_img/logo-black.png" height="50px" alt="LOGO"></a>
 		</div>
 		<div class="categories">
 			<a href="listing.php?category=ALL">All</a>

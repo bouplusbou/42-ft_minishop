@@ -67,8 +67,8 @@ $images_url = array(
 	"https://i.ibb.co/ggMVsHk/succes.png",
 	"https://i.ibb.co/0YktGBs/giphy.gif",
 	"https://i.ibb.co/4s1DYBW/background-index.jpg",
-	"https://i.ibb.co/LtVXtDj/logo-artsy-blue.png",
-	"https://i.ibb.co/5WBjWrv/logo-artsy-black.png"
+	"https://i.ibb.co/9hGKxBd/logo-black.png",
+	"https://i.ibb.co/sy9bf4p/favicon.png",
 );
 foreach ($images_url as $image_url) {
 	download_img("./resources/website_img/", $image_url);
