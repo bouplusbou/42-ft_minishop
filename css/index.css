@@ -1,0 +1,7 @@
+.wrapper {
+	height: 80vh;
+	background: url("../resources/product_img/background-index.jpg") no-repeat center fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

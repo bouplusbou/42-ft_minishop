@@ -19,6 +19,7 @@ file_put_contents("./database/categories", "$categories_serialized");
 
 
 $images_url = array(
+	"https://i.ibb.co/4s1DYBW/background-index.jpg",
 	"https://i.ibb.co/w0z8bRZ/1.jpg",
 	"https://i.ibb.co/q0kY0NP/2.jpg",
 	"https://i.ibb.co/H2Bdh43/3.jpg",
