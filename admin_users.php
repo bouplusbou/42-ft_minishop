@@ -20,9 +20,8 @@ include 'inc/header.php';
 		<h2>DELETE A USER</h2>
 		<?php $users = get_users();
 		foreach ($users as $user_id => $user) {
-			if ($user_id != 0) { ?>
+			if (!is_admin_user($user['user'])) {?>
 		<div class="separator"></div>
-		<?php } ?>
 		<div class="users_container">
 			<p>- <?=$user['user']?></p>
 			<form action="admin_users.php" method="POST">
@@ -32,7 +31,8 @@ include 'inc/header.php';
 			</form>
 			</div>
 		</div>
-		<?php } ?>
+		<?php } 
+		}?>
 
 	</div>
 </body>
