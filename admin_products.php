@@ -60,5 +60,4 @@ include 'inc/header.php';
 		<?php } ?>
 
 	</div>
-</body>
-</html>
+<?php include 'inc/footer.php' ?>

@@ -6,7 +6,7 @@ function get_cart_dict($cart) {
     $items = array();
     $products = get_products();
     foreach ($cart as $cart_id => $product_id) {
-		$pd_id = $product_id['product_id'];
+        $pd_id = $product_id['product_id'];
         if (isset($items[$pd_id])) {
             $items[$pd_id]["quantity"] += 1;
         } else {
@@ -45,7 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         session_start();
         if (isset($_SESSION['username'])) {
             $items = get_cart_dict(unserialize($_COOKIE['cart']));
-            db_add_order('database/users', $_SESSION['username'], $items);
+            date_default_timezone_set('Europe/Paris');
+            $order = db_new_order(time(), calculate_total_cost($items), $items);
+            db_add_order('database/users', $_SESSION['username'], $order);
             foreach ($cart as $key => $value) {
                 unset($cart[$key]);
             }
@@ -56,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             header('Location: login.php');
         }
     }
-    if (!empty($cart)) {
+    if (!isset($_POST['order'])) {
         $serialized_cart = serialize($cart);
         setcookie("cart", $serialized_cart, time() + 86400);
     }
@@ -67,34 +69,34 @@ include 'inc/header.php';
 $title = "Shopping Cart";
 // $css = "./css/listing.css";
 ?>
-<h2 class="title">Cart</h2>
+<h1 class="title">Cart</h1>
 <div class="wrapper-cart">
 
     <div class="product-list">
-    <?php if (isset($_COOKIE['cart'])) {
-        $cart = unserialize($_COOKIE['cart']);
-        $items = get_cart_dict($cart);
+        <?php if (isset($_COOKIE['cart'])) {
+            $cart = unserialize($_COOKIE['cart']);
+            $items = get_cart_dict($cart);
 
-        foreach ($items as $product_id => $product) { ?>
-            <div class="product_wrapper">
-                <div class="image-container">
-                    <img src="<?=$product['product_info']['img']?>" alt="" class="image"/>
+            foreach ($items as $product_id => $product) { ?>
+                <div class="product_wrapper">
+                    <div class="image-container">
+                        <img src="<?=$product['product_info']['img']?>" alt="" class="image"/>
+                    </div>
+                    <div class="info-product">
+                        <span><?=$product['product_info']['name']?></span>
+                        <span>Quantity: <?=$product['quantity']?></span>
+                        <span>Price: <?php echo $product['quantity'] * $product['product_info']['price']; ?> </span>
+                    </div>
+                    <div class="delete-button">
+                        <form action="cart.php" method="POST">
+                            <input type="hidden" name="product_id" value="<?=$product_id?>" />
+                            <button name="add" value="add">Add</button>
+                            <button name="delete" value="delete">Delete</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="info-product">
-                    <span><?=$product['product_info']['name']?></span>
-                    <span>Quantity: <?=$product['quantity']?></span>
-                    <span>Price: <?php echo $product['quantity'] * $product['product_info']['price']; ?> </span>
-                </div>
-                <div class="delete-button">
-                   <form action="cart.php" method="POST">
-                        <input type="hidden" name="product_id" value="<?=$product_id?>" />
-                        <button name="add" value="add">Add</button>
-                        <button name="delete" value="delete">Delete</button>
-                    </form>
-                </div>
-            </div>
-        <?php }
-    } ?>
+            <?php }
+        } ?>
     </div>
     <?php if (count($items) !== 0) { ?>
         <div class="product-summary">

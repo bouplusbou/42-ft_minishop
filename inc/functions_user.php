@@ -12,6 +12,8 @@
  */
 
 function check_user_existance($data, $mail, $passwd = null) {
+    if ($data === false)
+        return false;
 	foreach ($data as $user) {
 		if ($user['user'] === $mail) {
 			if ($passwd !== null) {
