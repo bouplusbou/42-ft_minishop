@@ -1,4 +1,5 @@
 <?php
+include 'inc/db_user_functions.php';
 include 'inc/functions_user.php';
 
 function get_cart_dict($cart) {
@@ -18,11 +19,19 @@ function get_cart_dict($cart) {
     return $items;
 }
 
+function calculate_total_cost($items) {
+    $total = 0;
+    foreach ($items as $product) {
+        $total += $product['quantity'] * $product['product_info']['price'];
+    }
+    return $total;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $cart = unserialize($_COOKIE['cart']);
     if ($_POST['add'] === "add") {
         $cart[] = ["product_id" => $_POST['product_id']];
+        header('Location: cart.php');
     } else if ($_POST['delete'] === "delete") {
         foreach ($cart as $key => $product) {
             if ($product['product_id'] === $_POST['product_id']) {
@@ -31,18 +40,35 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
         }
         $cart = array_values($cart);
+        header('Location: cart.php');
+    } else if ($_POST['order'] === "order") {
+        session_start();
+        if (isset($_SESSION['username'])) {
+            $items = get_cart_dict(unserialize($_COOKIE['cart']));
+            db_add_order('database/users', $_SESSION['username'], $items);
+            foreach ($cart as $key => $value) {
+                unset($cart[$key]);
+            }
+            $serialized_cart = serialize($cart);
+            setcookie("cart", $serialized_cart, time() + 86400);
+            header('Location: index.php');
+        } else {
+            header('Location: login.php');
+        }
     }
-    $serialized_cart = serialize($cart);
-    setcookie("cart", $serialized_cart, time() + 86400);
-    header('Location: cart.php');
+    if (!empty($cart)) {
+        $serialized_cart = serialize($cart);
+        setcookie("cart", $serialized_cart, time() + 86400);
+    }
 }
 
+$css = "css/cart.css";
 include 'inc/header.php';
 $title = "Shopping Cart";
 // $css = "./css/listing.css";
 ?>
-<div class="wrapper">
-    <h2>Cart</h2>
+<h2 class="title">Cart</h2>
+<div class="wrapper-cart">
 
     <div class="product-list">
     <?php if (isset($_COOKIE['cart'])) {
@@ -50,8 +76,10 @@ $title = "Shopping Cart";
         $items = get_cart_dict($cart);
 
         foreach ($items as $product_id => $product) { ?>
-            <div class="product_container">
-                <img src="<?=$product['product_info']['img']?>" alt="" class="image"/>
+            <div class="product_wrapper">
+                <div class="image-container">
+                    <img src="<?=$product['product_info']['img']?>" alt="" class="image"/>
+                </div>
                 <div class="info-product">
                     <span><?=$product['product_info']['name']?></span>
                     <span>Quantity: <?=$product['quantity']?></span>
@@ -59,19 +87,27 @@ $title = "Shopping Cart";
                 </div>
                 <div class="delete-button">
                    <form action="cart.php" method="POST">
-                       <input type="hidden" name="product_id" value="<?=$product_id?>" />
-                       <button name="delete" value="delete">Delete</button>
-                       <button name="add" value="add">Add</button>
+                        <input type="hidden" name="product_id" value="<?=$product_id?>" />
+                        <button name="add" value="add">Add</button>
+                        <button name="delete" value="delete">Delete</button>
                     </form>
                 </div>
             </div>
         <?php }
     } ?>
     </div>
-
-    <div class="product-summary">
-        <p>hello</p>
-    </div>
+    <?php if (count($items) !== 0) { ?>
+        <div class="product-summary">
+            <div class="summary-wrapper">
+                <div class="info-order">
+                    <span>Total price: <?=calculate_total_cost($items)?></span>
+                </div>
+                <form method="post" action="cart.php">
+                    <button name="order" value="order">Order</button>
+                </form>
+            </div>
+        </div>
+    <?php } ?>
 </div>
 
 <?php include 'inc/footer.php' ?>
