@@ -1,6 +1,7 @@
 .product_container {
 	position: relative;
 	width: 400px;
+	margin: 10px;
 }
 
 .image {
@@ -51,6 +52,8 @@ button:hover {
 }
 
 h2 {
+	margin-top: 100px;
+	margin-bottom: 100px;
 	font-family: 'Comfortaa', cursive;
 	color: rgb(54, 54, 54);
 	font-size: 30px;
@@ -66,5 +69,8 @@ h2 {
 }
 
 .product_wrapper {
-	margin: 30px 400px;
+	margin: 30px 10vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
