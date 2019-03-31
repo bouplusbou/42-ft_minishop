@@ -208,3 +208,41 @@ function get_product_categories($product_id) {
 	$categories_str = implode(",", $categories);
 	return $categories_str;
 }
+
+
+function create_product($name, $price, $img_url, $categories) {
+	$products = get_products();
+	$img_path = download_img("./resources/products_img/", $img_url);
+	$product = array(
+		"name" => $name,
+		"price" => $price,
+		"img" => $img_path,
+		"categories" => $categories
+	);
+	$products[] = $product;
+	$products_serialized = serialize($products);
+	file_put_contents("./database/products", "$products_serialized", LOCK_EX);
+}
+
+function delete_product($product_id) {
+	$products = get_products();
+	unset($products[$product_id]);
+	$serialized_products = serialize($products);
+	file_put_contents("./database/products", "$serialized_products", LOCK_EX);
+}
+
+function update_product($product_id, $name, $price, $img_url, $categories) {
+	if (!preg_match("~^./resources/products_img/~", $img_url)) {
+		$img_url = download_img("./resources/products_img/", $img_url);
+	}
+	$products = get_products();
+	$product = array(
+		"name" => $name,
+		"price" => $price,
+		"img" => $img_url,
+		"categories" => $categories
+	);
+	$products[$product_id] = $product;
+	$products_serialized = serialize($products);
+	file_put_contents("./database/products", "$products_serialized", LOCK_EX);
+}

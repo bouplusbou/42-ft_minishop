@@ -7,6 +7,9 @@ if ($_SERVER['REQUEST_METHOD']) {
 if (!file_exists("./database/")) {
 	mkdir("./database/");
 }
+if (!file_exists("./resources/")) {
+	mkdir("./resources/");
+}
 include 'inc/functions_user.php';
 
 $categories = array(
