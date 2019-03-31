@@ -1,12 +1,9 @@
 <?php
 include 'inc/functions_user.php';
-
-session_start();
+include 'inc/header.php';
 
 $title = "Shopping Cart";
 // $css = "./css/listing.css";
-include 'inc/functions_user.php';
-include 'inc/header.php';
 ?>
 	<div class="wrapper">
 		<h2>Cart</h2>
