@@ -15,7 +15,7 @@ $title = "Users Admin Panel";
 $css = "./css/admin_users.css";
 include 'inc/header.php';
 ?>
-	<h1>- Users Admin Panel -</h1>
+	<h1>Users Admin Panel</h1>
 	<div class="delete_user_wrapper">
 		<h2>DELETE A USER</h2>
 		<?php $users = get_users();
