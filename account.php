@@ -6,14 +6,14 @@ $css = "css/account.css";
 $title = "My account";
 include 'inc/header.php';
 ?>
-
-<div class="account-container">
-    <?php if ($_SESSION['admin'] === true) {?>
-        <a href="admin_products.php">Manage products</a>
-        <a href="admin_users.php">Manage users</a>
+<h1>Your Account</h1>
+<div class="account_container">
+	<?php if ($_SESSION['admin'] === true) {?>
+        <a class="manage_products" href="admin_products.php">Manage products</a>
+        <a class="manage_users" href="admin_users.php">Manage users</a>
     <?php } ?>
-	<a href="modif.php">Change my password</a>
-	<a href="delete_account.php">Delete my account</a>
+	<a class="change_password" href="modif.php">Change my password</a>
+	<a class="delete_account" href="delete_account.php">Delete my account</a>
 </div>
 
 <?php include 'inc/footer.php'; ?>
