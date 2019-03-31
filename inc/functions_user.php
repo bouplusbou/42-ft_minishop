@@ -296,3 +296,17 @@ function calculate_total_cost($items) {
     }
     return $total;
 }
+
+function get_all_orders() {
+    $orders = array();
+    $db = unserialize_data('database/users');
+    foreach ($db as $user) {
+        $user_orders = $user["orders"];
+        if (!empty($user_orders)) {
+            foreach ($user_orders as $order) {
+                $orders[] = ["user" => $user['user'], "order" => $order];
+            }
+        }
+    }
+    return $orders;
+}
