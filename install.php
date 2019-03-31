@@ -64,6 +64,8 @@ foreach ($images_url as $image_url) {
 }
 
 $images_url = array(
+	"https://i.ibb.co/ggMVsHk/succes.png",
+	"https://i.ibb.co/0YktGBs/giphy.gif",
 	"https://i.ibb.co/4s1DYBW/background-index.jpg",
 	"https://i.ibb.co/LtVXtDj/logo-artsy-blue.png",
 	"https://i.ibb.co/5WBjWrv/logo-artsy-black.png"
@@ -261,10 +263,6 @@ $admins = [
     "alonsonestor20@gmail.com"
 ];
 
-
 $admins_serialized = serialize($admins);
 file_put_contents('database/admins', "$admins_serialized");
-
-// echo password_hash("lol@google.com", PASSWORD_BCRYPT);
-// echo intval(password_verify("lol@google.com", password_hash("lol@google.co", PASSWORD_BCRYPT)));
 ?>

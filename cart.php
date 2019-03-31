@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
             $serialized_cart = serialize($cart);
             setcookie("cart", $serialized_cart, time() + 86400);
-            header('Location: index.php');
+            header('Location: order_successful.php');
         } else {
             header('Location: login.php');
         }

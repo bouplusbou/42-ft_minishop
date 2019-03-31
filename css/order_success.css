@@ -1,0 +1,42 @@
+.wrapper {
+	background-color: #304ed1;
+	height: 100vh;
+	padding: 150px 1000px;
+}
+
+.container {
+	background-color: white;
+	height: 50vh;
+	border-radius: 40px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding-top: 30px;
+	box-shadow: 0 10px 30px 0 rgba(54, 54, 54,0.4);
+}
+
+h2 {
+	margin-top: 50px;
+	font-family: "Roboto", sans-serif;
+	color: rgb(70, 70, 70);
+	font-size: 30px;
+	font-weight: 900;
+	text-align: center;
+}
+
+.succes_msg {
+	margin-top: 80px;
+	font-family: "Roboto", sans-serif;
+}
+
+.gif {
+	margin-top: 60px;
+}
+
+.gif > img {
+	border-radius: 30px;
+}
+
+
+
