@@ -19,33 +19,31 @@ function get_user_orders($current_user) {
     return $orders;
 }
 
+$css = "css/admin_orders.css";
 session_start();
 include 'inc/header.php';
 ?>
+    <h1>My orders</h1>
+    <div class="orders_wrapper">
+        <?php
+        $orders = get_user_orders($_SESSION['username']);
 
-<h1>- My Orders-</h1>
-
-<div class="orders-wrapper">
-    <?php
-    $orders = get_user_orders($_SESSION['username']);
-
-    foreach ($orders as $order) {?>
-    <div class="ordercontainer">
-        <span class="mail"><?=$order['user']?></span>
+        foreach ($orders as $order) {?>
+            <div class="separator"></div>
+            <div class="order_container">
+                <span class="mail"><?=$order['user']?></span>
+                <div class="items">
+                    <ul class="list-items">
+                        <?php foreach ($order['order']['items'] as $product) { ?>
+                            <li class="item"><?=$product['product_info']['name']?></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <div class="price">
+                    $<?=$order['order']['total_amount']?>.00
+                </div>
+                <div class="status">Arrived</div>
+            </div>
+        <?php } ?>
     </div>
-        <div class="items">
-            <ul class="list-items">
-                <?php foreach ($order['order']['items'] as $product) { ?>
-                   <li class="item"><?=$product['product_info']['name']?></li>
-                <?php } ?>
-            </ul>
-        </div>
-        <div class="price">
-            <?=$order['order']['total_amount']?>
-        </div>
-        <div class="status">Arrived</div>
-
-    <?php } ?>
-</div>
-
 <?php include 'inc/footer.php' ?>
