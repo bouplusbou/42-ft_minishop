@@ -7,5 +7,4 @@ include 'inc/header.php';
 
 ?>
 
-</body>
-</html>
+<?php include 'inc/footer.php'; ?>

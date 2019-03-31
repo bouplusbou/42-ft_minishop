@@ -247,19 +247,6 @@ $products = array(
 $products_serialized = serialize($products);
 file_put_contents("./database/products", "$products_serialized");
 
-$users = array(
-	"lol@google.com" => array(
-		"passwd" => "lol@google.com",
-		"cart" => "",
-		"type" => "1"),
-	"pop@google.com" => array(
-		"passwd" => "pop@google.com",
-		"cart" => "",
-		"type" => "1"),
-
-);
-$users_serialized = serialize($users);
-file_put_contents("./database/users", "$users_serialized");
 // echo password_hash("lol@google.com", PASSWORD_BCRYPT);
 // echo intval(password_verify("lol@google.com", password_hash("lol@google.co", PASSWORD_BCRYPT)));
 ?>

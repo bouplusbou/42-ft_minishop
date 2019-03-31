@@ -26,6 +26,7 @@ include 'inc/header.php';
 	
 	<p>Change a product</p>
 	<div class="wrapper">
+
 		<?php $products = get_products();
 		foreach ($products as $product_id => $product) {?>
 		<div class="product_container">
@@ -68,6 +69,7 @@ include 'inc/header.php';
 			</div>
 		</div>
 		<?php } ?>
+
 	</div>
 </body>
 </html>

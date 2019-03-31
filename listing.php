@@ -9,32 +9,30 @@ include 'inc/header.php';
 		<?php $category = "ALL";
 			if (in_array($_GET['category'], get_categories())) {
 				$category = $_GET['category'];
-			} ?>
+			}
+		?>
 		<h2><?=$category?></h2>
-		<?php $products = get_products();
-		foreach ($products as $product_id => $product) {
-		if ($category === "ALL" || in_array($category, $product['categories'])) { ?>
-		<div class="product_wrapper">
-			<div class="product_container">
-				<img src="<?=$product['img']?>" alt="" class="image">
-				<div class="overlay">
-					<div class="product_infos">
-						<div class="text product_name"><?=$product['name']?></div>
-						<div class="text product_price">$<?=$product['price']?>.00</div>
-					</div>
-					<div class="form-group">	
+		<?php
+			$products = get_products();
+			foreach ($products as $product_id => $product) {
+				if ($category === "All" || in_array($category, $product['categories'])) {
+					?>
+				<div class="product_container">
+				  <img src="<?=$product['img']?>" alt="" class="image">
+				  <div class="overlay">
+					<div class="text"><?=$product['name']?></div>
+					<div class="text"><?=$product['price']?></div>
+					<div class="form-group">
 					  <form action="manage_cart.php" method="POST">
-						  <input name="type" type="hidden" value="add" />
-						<input name="quantity" type="hidden" value="1" />
-						<input name="product_id" type="hidden" value="<?=$product_id?>" /> 
-						<button class="add-button" type="submit">Add to Cart!</button>
+					    <input name="quantity" type="hidden" value="1" />
+					    <input name="product_id" type="hidden" value="<?=$product_id?>" />
+					    <button class="add-button" type="submit">Add to Cart!</button>
+							<input type="submit" name="add" value="Add" />
 					  </form>
 					</div>
 				  </div>
-			</div>
-		</div>
-		<?php } 
-		} ?>
-	</div>
-</body>
-</html>
+				</div>
+		<?php	}
+			} ?>
+
+<?php include 'inc/footer.php'; ?>

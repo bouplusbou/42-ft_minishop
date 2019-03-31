@@ -38,8 +38,15 @@ function check_user_existance($data, $mail, $passwd = null) {
 function unserialize_data($file) {
 	$data = [];
 	if (file_exists($file)) {
-		$data = file_get_contents($file);
-		$data = unserialize($data);
+		$fd = fopen($file, "r");
+		if (flock($fd, LOCK_SH)) {
+			$data = file_get_contents($file);
+			$data = unserialize($data);
+			flock($fd, LOCK_UN);
+		} else {
+			echo "Unable to flock() the file: $file\n";
+		}
+		fclose($fd);
 	}
 	return ($data);
 }
@@ -55,8 +62,17 @@ function unserialize_data($file) {
  */
 
 function serialize_data($data, $file) {
-	$data = serialize($data);
-	file_put_contents($file, $data);
+	if (file_exists($file)) {
+		$fd = fopen($file, "c");
+		if (flock($fd, LOCK_EX)) {
+			$data = serialize($data);
+			file_put_contents($file, $data);
+			flock($fd, LOCK_UN);
+		} else {
+			echo "Unable to flock() the file: $file\n";
+		}
+		fclose($fd);
+	}
 }
 
 /*
@@ -73,6 +89,18 @@ function	create_user($user, $passwd) {
 	$passwd = password_hash($passwd, PASSWORD_BCRYPT);
 
 	return ["user" => $user, "passwd" => $passwd];
+}
+
+function	delete_user($file, $username) {
+	$db = unserialize_data($file);
+	foreach ($db as $key => $user) {
+		if ($user['user'] == $username) {
+			unset($db[$key]);
+			break ;
+		}
+	}
+	$db = array_values($db);
+	serialize_data($db, $file);
 }
 
 function is_valid_email($email) {
