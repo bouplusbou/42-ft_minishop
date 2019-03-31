@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && count($errors) === 0) {
     $errmsg = create_error_html($errors);
 }
 
-$title = "My account";
+$title = "Change password";
 $css = "css/login.css";
 include 'inc/header.php';
 ?>

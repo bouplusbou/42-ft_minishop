@@ -20,6 +20,7 @@ function get_user_orders($current_user) {
 }
 
 $css = "css/admin_orders.css";
+$title = "My orders";
 session_start();
 include 'inc/header.php';
 ?>

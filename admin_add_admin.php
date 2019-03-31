@@ -12,7 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = unserialize_data('database/admins');
 
     if ($_POST["submit"] === "Add") {
-        $db[] = $_POST['newadmin'];
+        if (is_valid_email($_POST['newadmin'])) {
+            $db[] = $_POST['newadmin'];
+        }
     }
 
     $db = serialize_data($db, 'database/admins');

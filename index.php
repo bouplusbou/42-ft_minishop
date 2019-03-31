@@ -27,13 +27,6 @@ include 'inc/functions_user.php';
 					<div class="text product_name"><?=$product['name']?></div>
 					<div class="text product_price">$<?=$product['price']?>.00</div>
 				</div>
-				<div class="form-group">
-				  <form action="manage_cart.php" method="POST">
-					<input name="quantity" type="hidden" value="1" />
-					<input name="product_id" type="hidden" value="<?=$product_id?>" />
-					<button class="add-button" name="add" value="add">Add to Cart!</button>
-				  </form>
-				</div>
 			  </div>
 			</li>
 	<?php	}
