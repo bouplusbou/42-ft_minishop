@@ -32,5 +32,4 @@ $title = "Shopping Cart";
 		} ?>
 
 	</div>
-</body>
-</html>
+<?php include 'inc/footer.php' ?>
