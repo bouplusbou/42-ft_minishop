@@ -62,7 +62,7 @@ include 'inc/header.php';
 			<?php if ($errmsg !== ''):
 				echo $errmsg;
 				endif; ?>
-			<a href="create_user.php">Sign Up</a>
+			<a href="create_user.php">Create an account</a>
 		</div>
 	</div>
 
