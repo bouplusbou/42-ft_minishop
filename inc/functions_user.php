@@ -101,6 +101,14 @@ function	delete_user($file, $username) {
 	serialize_data($db, $file);
 }
 
+function    is_admin_user($user) {
+    $admins = unserialize_data('database/admins');
+    if (in_array($user, $admins)) {
+        return true;
+    }
+    return false;
+}
+
 function is_valid_email($email) {
 	return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }

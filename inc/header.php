@@ -26,12 +26,8 @@ session_start();
 		</div>
 		<div class="user">
 			<?php if (isset($_SESSION['username'])) {?>
-			<li class="menu_li"><a href="#" id="sandwichs" class="menu_a">Account</a>
-				<ul id="dropdown">
-					<li id="purple"><a href="account.php">My account</a></li>
-					<li id="blue"><a href="logout.php">Logout</a></li>
-				</ul>
-			</li>
+                <a class="login" href="account.php">My account</a>
+                <a class="login" href="logout.php">Logout</a>
 			<?php } else { ?>
 				<a class="login" href="login.php">Login</a>
 			<?php } ?>

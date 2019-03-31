@@ -29,7 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && count($errors) === 0) {
     session_start();
+    $admins = unserialize_data('database/admins');
 	$_SESSION['username'] = $_POST['email'];
+	if (in_array($_SESSION['username'], $admins) === true) {
+	    $_SESSION['admin'] = true;
+    } else {
+        $_SESSION['admin'] = false;
+    }
 	if (($prev = db_get_cart('database/users', $_SESSION['username'])) !== null) {
 	    if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart'])) {
 	       $prev = array_merge($prev, unserialize($_COOKIE['cart']));
