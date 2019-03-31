@@ -12,6 +12,7 @@ include 'inc/header.php';
         <a class="manage" href="admin_products.php">Manage products</a>
 		<a class="manage" href="admin_users.php">Manage users</a>
 		<a class="manage" href="admin_orders.php">Manage all orders</a>
+        <a class="manage" href="admin_add_admin.php">Add a new admin</a>
 		<div class="separator"></div>
 	<?php } ?>
 	<a class="orders" href="user_orders.php">My orders</a>
