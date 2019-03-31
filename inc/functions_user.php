@@ -62,7 +62,6 @@ function unserialize_data($file) {
  */
 
 function serialize_data($data, $file) {
-
 		$fd = fopen($file, "c");
 		if (flock($fd, LOCK_EX)) {
 			$data = serialize($data);
@@ -72,7 +71,6 @@ function serialize_data($data, $file) {
 			echo "Unable to flock() the file: $file\n";
 		}
 		fclose($fd);
-
 }
 
 /*

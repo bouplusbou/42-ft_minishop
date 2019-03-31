@@ -1,5 +1,5 @@
 <?php
-
+include 'inc/db_user_functions.php';
 include 'inc/functions_user.php';
 
 $file = 'database/passwd';
@@ -28,8 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && count($errors) === 0) {
+    session_start();
 	$_SESSION['username'] = $_POST['email'];
-	header("Location: " . "index.php");
+	if (($prev = db_get_cart('database/users', $_SESSION['username'])) !== null) {
+	    if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart'])) {
+	       $prev = array_merge($prev, unserialize($_COOKIE['cart']));
+        }
+        setcookie("cart", serialize($prev), time() + 86400);
+    }
+    header('Location: index.php');
 } else {
 	$errmsg = create_error_html($errors);
 }
