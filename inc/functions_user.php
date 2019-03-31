@@ -246,3 +246,18 @@ function update_product($product_id, $name, $price, $img_url, $categories) {
 	$products_serialized = serialize($products);
 	file_put_contents("./database/products", "$products_serialized", LOCK_EX);
 }
+
+function get_users() {
+	if (file_exists("./database/users")) {
+		$fp = fopen("./database/users", "r");
+		if (flock($fp, LOCK_SH)) { // acquière un verrou exclusif
+			$file_users = file_get_contents("./database/users");
+			fflush($fp);            // libère le contenu avant d'enlever le verrou
+			flock($fp, LOCK_UN);    // Enlève le verrou
+		} else {
+			echo "Impossible de verrouiller le fichier !";
+		}
+		fclose($fp);
+		return unserialize($file_users);
+	}
+}
