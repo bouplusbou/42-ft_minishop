@@ -1,11 +1,11 @@
 <?php
 session_start();
-$title = "Admin Panel";
-$css = "./css/admin.css";
+$title = "Products Admin Panel";
+$css = "./css/admin_products.css";
 include 'inc/functions_user.php';
 include 'inc/header.php';
 ?>
-	<h1>- Product Admin Panel -</h1>
+	<h1>- Products Admin Panel -</h1>
 	<div class="add_product">
 		<h2>ADD A PRODUCT</h2>
 		<form name="index.php" name="add_product_form" action="manage_products.php" method="POST">
