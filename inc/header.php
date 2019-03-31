@@ -16,7 +16,7 @@ session_start();
 <body>
 	<div id="header">
 		<div class="logo">
-			<a href="listing.php?category=ALL"><img src="../resources/product_img/logo-artsy-black.png" height="50px" alt="LOGO"></a>
+			<a href="listing.php?category=ALL"><img src="../resources/website_img/logo-artsy-black.png" height="50px" alt="LOGO"></a>
 		</div>
 		<div class="categories">
 			<a href="listing.php?category=ALL">All</a>

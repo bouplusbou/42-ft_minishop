@@ -171,12 +171,15 @@ function get_categories() {
  *
  */
 
-function download_img($image_url) {
+function download_img($image_dir, $image_url) {
+	if (!file_exists($image_dir)) {
+		mkdir($image_dir);
+	}
 	$ch = curl_init($image_url);
 	$path_parts = pathinfo($image_url);
 	$parsed_url = parse_url($path_parts['basename']);
 	$path_parts = pathinfo($parsed_url['path']);
-	$path = "./resources/product_img/".$path_parts['filename'].".".$path_parts['extension'];
+	$path = $image_dir.$path_parts['filename'].".".$path_parts['extension'];
 	$fp = fopen($path, 'wb');
 	curl_setopt($ch, CURLOPT_FILE, $fp);
 	curl_setopt($ch, CURLOPT_HEADER, 0);

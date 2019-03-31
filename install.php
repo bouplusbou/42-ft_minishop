@@ -19,7 +19,6 @@ file_put_contents("./database/categories", "$categories_serialized");
 
 
 $images_url = array(
-	"https://i.ibb.co/4s1DYBW/background-index.jpg",
 	"https://i.ibb.co/w0z8bRZ/1.jpg",
 	"https://i.ibb.co/q0kY0NP/2.jpg",
 	"https://i.ibb.co/H2Bdh43/3.jpg",
@@ -56,192 +55,199 @@ $images_url = array(
 	"https://i.ibb.co/phVTMNF/34.jpg",
 	"https://i.ibb.co/NrBsS0K/35.jpg",
 	"https://i.ibb.co/KzVTSm0/36.jpg",
+);
+foreach ($images_url as $image_url) {
+	download_img("./resources/products_img/", $image_url);
+}
+
+$images_url = array(
+	"https://i.ibb.co/4s1DYBW/background-index.jpg",
 	"https://i.ibb.co/LtVXtDj/logo-artsy-blue.png",
 	"https://i.ibb.co/5WBjWrv/logo-artsy-black.png"
 );
 foreach ($images_url as $image_url) {
-	download_img($image_url);
+	download_img("./resources/website_img/", $image_url);
 }
 
 $products = array(
 	array(
 		"name" => "Lumbersexual",
 		"price" => 100,
-		"img" => "./resources/product_img/1.jpg",
+		"img" => "./resources/products_img/1.jpg",
 		"categories" => array("PRINTS", "SALES")
 	),
 	array(
 		"name" => "Seitan",
 		"price" => 200,
-		"img" => "./resources/product_img/2.jpg",
+		"img" => "./resources/products_img/2.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Normcore",
 		"price" => 250,
-		"img" => "./resources/product_img/3.jpg",
+		"img" => "./resources/products_img/3.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Pok",
 		"price" => 150,
-		"img" => "./resources/product_img/4.jpg",
+		"img" => "./resources/products_img/4.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Poutine",
 		"price" => 320,
-		"img" => "./resources/product_img/5.jpg",
+		"img" => "./resources/products_img/5.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Thundercats",
 		"price" => 320,
-		"img" => "./resources/product_img/6.jpg",
+		"img" => "./resources/products_img/6.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Microdosing",
 		"price" => 230,
-		"img" => "./resources/product_img/7.jpg",
+		"img" => "./resources/products_img/7.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Prism",
 		"price" => 240,
-		"img" => "./resources/product_img/8.jpg",
+		"img" => "./resources/products_img/8.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Flexitarian",
 		"price" => 120,
-		"img" => "./resources/product_img/9.jpg",
+		"img" => "./resources/products_img/9.jpg",
 		"categories" => array("PRINTS", "SALES")
 	),
 	array(
 		"name" => "Tofu",
 		"price" => 300,
-		"img" => "./resources/product_img/10.jpg",
+		"img" => "./resources/products_img/10.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Paleo",
 		"price" => 110,
-		"img" => "./resources/product_img/11.jpg",
+		"img" => "./resources/products_img/11.jpg",
 		"categories" => array("PRINTS", "SALES")
 	),
 	array(
 		"name" => "Raw",
 		"price" => 320,
-		"img" => "./resources/product_img/12.jpg",
+		"img" => "./resources/products_img/12.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Shaman",
 		"price" => 320,
-		"img" => "./resources/product_img/13.jpg",
+		"img" => "./resources/products_img/13.jpg",
 		"categories" => array("PRINTS", "SALES")
 	),
 	array(
 		"name" => "Pitchfork",
 		"price" => 320,
-		"img" => "./resources/product_img/14.jpg",
+		"img" => "./resources/products_img/14.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Selvage",
 		"price" => 320,
-		"img" => "./resources/product_img/15.jpg",
+		"img" => "./resources/products_img/15.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Cliche",
 		"price" => 250,
-		"img" => "./resources/product_img/16.jpg",
+		"img" => "./resources/products_img/16.jpg",
 		"categories" => array("PRINTS", "SALES")
 	),
 	array(
 		"name" => "Sriracha",
 		"price" => 320,
-		"img" => "./resources/product_img/17.jpg",
+		"img" => "./resources/products_img/17.jpg",
 		"categories" => array("PRINTS", "SALES")
 	),
 	array(
 		"name" => "Hoodie",
 		"price" => 250,
-		"img" => "./resources/product_img/18.jpg",
+		"img" => "./resources/products_img/18.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Tattooed",
 		"price" => 220,
-		"img" => "./resources/product_img/19.jpg",
+		"img" => "./resources/products_img/19.jpg",
 		"categories" => array("PRINTS")
 	),
 	array(
 		"name" => "Taxidermy",
 		"price" => 320,
-		"img" => "./resources/product_img/20.jpg",
+		"img" => "./resources/products_img/20.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Iceland",
 		"price" => 250,
-		"img" => "./resources/product_img/21.jpg",
+		"img" => "./resources/products_img/21.jpg",
 		"categories" => array("PAPERCUTS", "SALES")
 	),
 	array(
 		"name" => "Fam",
 		"price" => 320,
-		"img" => "./resources/product_img/22.jpg",
+		"img" => "./resources/products_img/22.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Mug",
 		"price" => 320,
-		"img" => "./resources/product_img/23.jpg",
+		"img" => "./resources/products_img/23.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Semiotics",
 		"price" => 320,
-		"img" => "./resources/product_img/24.jpg",
+		"img" => "./resources/products_img/24.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Pack",
 		"price" => 250,
-		"img" => "./resources/product_img/25.jpg",
+		"img" => "./resources/products_img/25.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Fanny",
 		"price" => 320,
-		"img" => "./resources/product_img/26.jpg",
+		"img" => "./resources/products_img/26.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Plant",
 		"price" => 220,
-		"img" => "./resources/product_img/27.jpg",
+		"img" => "./resources/products_img/27.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Vice",
 		"price" => 250,
-		"img" => "./resources/product_img/28.jpg",
+		"img" => "./resources/products_img/28.jpg",
 		"categories" => array("PAPERCUTS")
 	),
 	array(
 		"name" => "Subway",
 		"price" => 320,
-		"img" => "./resources/product_img/29.jpg",
+		"img" => "./resources/products_img/29.jpg",
 		"categories" => array("PAPERCUTS", "SALES")
 	),
 	array(
 		"name" => "Flannel",
 		"price" => 220,
-		"img" => "./resources/product_img/30.jpg",
+		"img" => "./resources/products_img/30.jpg",
 		"categories" => array("PAPERCUTS")
 	)
 );
