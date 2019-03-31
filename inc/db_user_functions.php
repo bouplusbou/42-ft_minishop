@@ -13,7 +13,7 @@
 function db_add_user($path, $user_mail) {
     $db = unserialize_data($path);
 
-    $db[] = ["user_mail" => $user_mail,
+    $db[] = ["user" => $user_mail,
         "cart" => array(),
         "orders" => array()
     ];
@@ -25,7 +25,7 @@ function db_delete_user($path, $user_mail) {
     $db = unserialize_data($path);
 
     foreach ($db as $key => $user) {
-        if ($user['user_mail'] == $user_mail) {
+        if ($user['user'] == $user_mail) {
             unset($db[$key]);
             break ;
         }
@@ -44,7 +44,7 @@ function db_get_orders($path, $user_mail) {
     $db = unserialize_data($path);
 
     foreach ($db as $key => $user) {
-        if ($user['user_mail'] == $user_mail) {
+        if ($user['user'] == $user_mail) {
             return $db[$key]["orders"];
         }
     }
@@ -55,7 +55,7 @@ function db_get_cart($path, $user_mail) {
     $db = unserialize_data($path);
 
     foreach ($db as $key => $user) {
-        if ($user['user_mail'] == $user_mail) {
+        if ($user['user'] == $user_mail) {
             return $db[$key]["cart"];
         }
     }
@@ -66,7 +66,7 @@ function db_set_cart($path, $user_mail, $new_cart) {
     $db = unserialize_data($path);
 
     foreach ($db as $key => $user) {
-        if ($user['user_mail'] == $user_mail) {
+        if ($user['user'] == $user_mail) {
             $db[$key]["cart"] = $new_cart;
         }
     }
@@ -78,7 +78,7 @@ function db_add_order($path, $user_mail, $last_oder) {
     $db = unserialize_data($path);
 
     foreach ($db as $key => $user) {
-        if ($user['user_mail'] == $user_mail) {
+        if ($user['user'] == $user_mail) {
             $db[$key]["orders"][] = $last_oder;
             break ;
         }
