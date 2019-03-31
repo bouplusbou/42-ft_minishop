@@ -32,11 +32,15 @@ a:hover {
 	cursor: pointer;
 }
 
-.manage_products, .manage_users {
+.orders {
+	background-color: #d1d424;
+}
+
+.manage {
 	background-color: #304ed1;
 }
 
- .change_password {
+ .password {
 	background-color: #46b980;
 }
 
