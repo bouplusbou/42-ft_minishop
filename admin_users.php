@@ -3,6 +3,9 @@ session_start();
 
 include 'inc/functions_user.php';
 
+if ($_SESSION['admin'] !== true) {
+	header('Location: index.php');
+}
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 	if ($_POST['type'] === "delete") {
 		delete_user("./database/users", $_POST['username']);

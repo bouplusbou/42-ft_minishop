@@ -1,5 +1,8 @@
 <?php
 session_start();
+if ($_SESSION['admin'] !== true) {
+	header('Location: index.php');
+}
 $title = "Products Admin Panel";
 $css = "./css/admin_products.css";
 include 'inc/functions_user.php';
