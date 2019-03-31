@@ -271,3 +271,28 @@ function get_users() {
 		return unserialize($file_users);
 	}
 }
+
+function get_cart_dict($cart) {
+    $items = array();
+    $products = get_products();
+    foreach ($cart as $cart_id => $product_id) {
+		$pd_id = $product_id['product_id'];
+        if (isset($items[$pd_id])) {
+            $items[$pd_id]["quantity"] += 1;
+        } else {
+            $items[$pd_id] = [
+                "product_info" => $products[$pd_id],
+                "quantity" => 1
+            ];
+        }
+    }
+    return $items;
+}
+
+function calculate_total_cost($items) {
+    $total = 0;
+    foreach ($items as $product) {
+        $total += $product['quantity'] * $product['product_info']['price'];
+    }
+    return $total;
+}
