@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrapper-cart{
+    margin: 30px 10vw;
+}
+
+.title {
+    text-align: center;
+}
+
+.product-list {
+    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.product_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+}
+
+.info-product {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1vw;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.image-container {
+    padding: 5px;
+    width: 150px;
+}
+
+.image {
+    max-width: 90%;
+}
+
+.product-summary {
+    margin-top: 50px;
+    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.summary-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+}
+
+.info-order {
+    padding-left: 20px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1vw;
+}
+
+button {
+	background-color: #56baed;
+	border: none;
+	color: white;
+	padding: 15px 40px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 13px;
+	border-radius: 5px 5px 5px 5px;
+    margin: 0 20px;
+}
+
+button[name=delete] {
+    background-color: #DB504A;
+}
+
+button[name=add] {
+    background-color: #46b980;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+    background-color: #39ace7;
+}
+
+button[name=order] {
+    background-color: #304ed1;
+}
