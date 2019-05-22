@@ -1,6 +1,6 @@
 # ft_minishop - Artsy
 
-After one week learning the basics of PHP, we built with @nestoralonsovina a small e-commerce in 48 hours.
+After one week learning the basics of PHP, we built with [@nestoralonsovina](https://github.com/nestoralonsovina) a small e-commerce in 48 hours.
 
 Oh it's messy and definitely against all best practices but it works.
 
@@ -24,12 +24,12 @@ php -S localhost:8080
 ```
 
 ## Visuals
-- Galery
+**Galery**
 <p align="center">
   <img src="./resources/galery.png" alt="Artsy galery" width="738">
 </p>
 
-- Cart
+**Cart**
 <p align="center">
   <img src="./resources/cart.png" alt="Artsy cart" width="738">
 </p>
